@@ -1,21 +1,16 @@
 import requests
 import json
-import os
 
 url = "https://api.vendas.gpa.digital/pa/search/search"
 headers = {
     "Content-Type": "application/json"
 }
 
-os.makedirs("json_files", exist_ok=True)
-
-
 all_products = []
 page = 1
 total_pages = None
 
-while True:
-    payload = {
+payload = {
         "terms": "azeite",
         "page": page,
         "sortBy": "relevance",
@@ -26,6 +21,9 @@ while True:
         "department": "ecom",
         "partner": "linx"
     }
+
+while True:
+    payload
 
     response = requests.post(url, json=payload, headers=headers)
     data = response.json()
@@ -44,7 +42,7 @@ while True:
         break
     page += 1
 
-with open("json_files/produtos_azeite_pao_acucar.json", "w", encoding="utf-8") as f:
+with open("produtos_azeite_pao_acucar.json", "w", encoding="utf-8") as f:
     json.dump(all_products, f, ensure_ascii=False, indent=2)
 
 print(f"\nTotal de produtos coletados: {len(all_products)}")
